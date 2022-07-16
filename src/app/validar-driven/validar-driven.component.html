@@ -1,0 +1,32 @@
+<div class="container col-6">
+    <form #regForm="ngForm" (ngSubmit)="mostrarForm(regForm)">
+        <div class="mb-3 row">
+            <label for="inputNombre" class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="inputNombre" name="nombre" [(ngModel)]="modelo.nombre" required >
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="inputDirector" class="col-sm-2 col-form-label">Director</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="inputDirector" name="director" [(ngModel)]="modelo.director" required>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="inputGenero" class="col-sm-2 col-form-label">Género</label>
+            <div class="col-sm-8">
+              <select name="genero" id="inputGenero" class="form-control" required [(ngModel)]="modelo.genero">
+                <option selected disabled>Selecione...</option>
+                <option *ngFor="let genero of generos" [value]="genero" >{{ genero }}</option>
+              </select>
+              
+            </div>
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Enviar</button>
+    </form>
+    <div class="mt-1">
+        <pre [hidden]=false>
+            {{ modelo.estado | json }}
+        </pre>
+    </div>
+</div>
