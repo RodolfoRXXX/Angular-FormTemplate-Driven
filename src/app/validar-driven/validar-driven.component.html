@@ -1,5 +1,5 @@
 <div class="container col-6">
-    <form #regForm="ngForm" (ngSubmit)="mostrarForm(regForm)">
+    <form #regForm="ngForm" (ngSubmit)="mostrarForm()">
         <div class="mb-3 row">
             <label for="inputNombre" class="col-sm-2 col-form-label">Nombre</label>
             <div class="col-sm-8">
@@ -19,14 +19,19 @@
                 <option selected disabled>Selecione...</option>
                 <option *ngFor="let genero of generos" [value]="genero" >{{ genero }}</option>
               </select>
-              
             </div>
         </div>
-        <button type="submit" class="btn btn-outline-primary">Enviar</button>
+
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+          <input type="button" class="btn-check" name="ocultar" id="btnradio1" autocomplete="off" (click)="ocultarDetalle()">
+          <label class="btn btn-outline-danger" for="btnradio1">Ocultar</label>
+        
+          <input type="submit" class="btn-check" name="submit" id="btnradio2" autocomplete="off">
+          <label class="btn btn-outline-primary" for="btnradio2">Mostrar</label>
+        </div>
     </form>
-    <div class="mt-1">
-        <pre [hidden]=false>
-            {{ modelo.estado | json }}
-        </pre>
+    <hr>
+    <div class="mt-3" [hidden]= !modelo.estado >
+            <pre>{{ modelo | json }}</pre>
     </div>
-</div>
+</div>>

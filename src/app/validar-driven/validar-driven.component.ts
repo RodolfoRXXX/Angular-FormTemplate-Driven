@@ -25,9 +25,12 @@ export class ValidarDrivenComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  mostrarForm(formulario: any){
-    console.log(formulario);
+  mostrarForm(){
     this.modelo.estado = true;
+  }
+
+  ocultarDetalle(){
+    this.modelo.estado = false;
   }
 
 }
