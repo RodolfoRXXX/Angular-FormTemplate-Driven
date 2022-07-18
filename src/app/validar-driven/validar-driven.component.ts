@@ -5,8 +5,8 @@ class Pelicula{
     public id:number,
     public nombre: string,
     public genero: string,
-    public director: string,
-    public estado: boolean
+    public estado: boolean,
+    public director?: string
   ){}
 }
 
@@ -18,15 +18,19 @@ class Pelicula{
 export class ValidarDrivenComponent implements OnInit {
 
   generos = ['Terror', 'Suspenso', 'Aventura', 'Comedia', 'Drama'];
-  modelo = new Pelicula( 1, 'Terminator', this.generos[2], 'Stephen Spielberg', false);
+  modelo = new Pelicula( 1, 'Terminator', this.generos[2], false);
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  mostrarForm(){
-    this.modelo.estado = true;
+  mostrarForm(formulario: any){
+    if(formulario.form.status === 'VALID'){
+      this.modelo.estado = true;
+      console.log(formulario);
+      console.log(formulario.value);
+    }
   }
 
   ocultarDetalle(){

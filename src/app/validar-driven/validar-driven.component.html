@@ -1,21 +1,24 @@
 <div class="container col-6">
-    <form #regForm="ngForm" (ngSubmit)="mostrarForm()">
+    <form #regForm="ngForm" (ngSubmit)="mostrarForm(regForm)" class="was-validated">
+        <p>Form valid: {{ regForm.valid | json }}</p>
+        <p>Form invalid: {{ regForm.invalid | json }}</p>
+        <p>Input name is valid?: {{ regForm.form.controls['nombre']?.valid | json }}</p>
         <div class="mb-3 row">
             <label for="inputNombre" class="col-sm-2 col-form-label">Nombre</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="inputNombre" name="nombre" [(ngModel)]="modelo.nombre" required >
+              <input type="text" class="form-control" id="inputNombre" name="nombre" [ngClass]="(nombre.invalid && nombre.touched && nombre.dirty)?'is-invalid':'is-valid'" #nombre="ngModel" [(ngModel)]="modelo.nombre" required minlength="3" maxlength="20" >
             </div>
         </div>
         <div class="mb-3 row">
             <label for="inputDirector" class="col-sm-2 col-form-label">Director</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="inputDirector" name="director" [(ngModel)]="modelo.director" required>
+              <input type="text" class="form-control" id="inputDirector" name="director" [ngClass]="(director.invalid && director.touched && director.dirty)?'is-invalid':'is-valid'" #director="ngModel" [(ngModel)]="modelo.director" required minlength="3" maxlength="20">
             </div>
         </div>
         <div class="mb-3 row">
             <label for="inputGenero" class="col-sm-2 col-form-label">Género</label>
             <div class="col-sm-8">
-              <select name="genero" id="inputGenero" class="form-control" required [(ngModel)]="modelo.genero">
+              <select name="genero" id="inputGenero" class="form-control" #genero="ngModel" [ngClass]="(genero.invalid && genero.touched && genero.dirty)?'is-invalid':'is-valid'" [(ngModel)]="modelo.genero" required>
                 <option selected disabled>Selecione...</option>
                 <option *ngFor="let genero of generos" [value]="genero" >{{ genero }}</option>
               </select>
@@ -29,6 +32,13 @@
           <input type="submit" class="btn-check" name="submit" id="btnradio2" autocomplete="off">
           <label class="btn btn-outline-primary" for="btnradio2">Mostrar</label>
         </div>
+        <div class="alert alert-danger mt-2" *ngIf="nombre.invalid || director.invalid || genero.invalid">
+          Errores:
+          <p *ngIf="nombre.invalid">Nombre: {{ regForm.form.controls['nombre']?.errors | json }}</p>
+          <p *ngIf="director.invalid">Director: {{ regForm.form.controls['director']?.errors | json }}</p>
+          <p *ngIf="genero.invalid">Género: {{ regForm.form.controls['genero']?.errors | json }}</p>
+        </div>
+
     </form>
     <hr>
     <div class="mt-3" [hidden]= !modelo.estado >
